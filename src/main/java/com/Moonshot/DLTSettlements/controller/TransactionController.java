@@ -10,11 +10,11 @@ import java.util.Collections;
 import java.util.List;
 
 @RestController
-@RequestMapping("/TransactionService")
+//@RequestMapping("/TransactionService")
 public class TransactionController {
 
     @RequestMapping("/CurrencyList")
-    public List<CurrencyEntity> fetchCurrency(){
+    public List<CurrencyEntity> fetchCurrency() {
 
         //get data from corda dlt api code.
         //RestTemplate restTemplate = new RestTemplate();
@@ -22,10 +22,13 @@ public class TransactionController {
 
         //currently hardcoding the value.
         return Collections.singletonList(
-                new CurrencyEntity(1,"US Dollar",2,"USD")
+                new CurrencyEntity(1, "US Dollar", 2, "INR")
 
         );
-
+    }
+    @RequestMapping("/")
+    public String home(){
+        return "DLT Settlement Service Running";
     }
 
 }

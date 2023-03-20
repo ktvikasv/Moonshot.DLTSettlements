@@ -39,7 +39,7 @@ jobs:
 
     steps:
       - name: Download artifact from build job
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v2
         with:
           name: java-app
 
@@ -49,5 +49,5 @@ jobs:
         with:
           app-name: 'MoonshotFXSettlement'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_25E71364FA1247F5ADB730A560237BB2 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C206744D8C514A5490FDF1E0CBD8A643 }}
           package: '*.war'

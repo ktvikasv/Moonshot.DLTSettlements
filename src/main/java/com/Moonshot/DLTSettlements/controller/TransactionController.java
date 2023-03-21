@@ -22,7 +22,7 @@ public class TransactionController {
 
         //currently hardcoding the value.
         return Collections.singletonList(
-                new CurrencyEntity(1, "US Dollar", 2, "INR")
+                new CurrencyEntity(1, "US Dollar", 2, "USD/GBP")
 
         );
     }

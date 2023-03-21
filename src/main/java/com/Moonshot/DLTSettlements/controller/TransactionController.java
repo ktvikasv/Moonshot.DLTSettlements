@@ -11,6 +11,10 @@ import java.util.*;
 @RequestMapping("/TransactionService")
 public class TransactionController {
 
+    @RequestMapping("/")
+    public String getMainPage(){
+        return "Welcome to DLT Settlements System - FX";
+    }
     @RequestMapping("/CurrencyList")
     public List<CurrencyEntity> fetchCurrency(){
 

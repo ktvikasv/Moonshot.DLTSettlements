@@ -17,6 +17,7 @@ public class TransactionController {
     @Autowired
     private LegalEntityRepo entityRepo;
 
+    @Autowired
     private CurrencyPairRepo currencyPairRepo;
 
     @RequestMapping("/")
@@ -55,15 +56,10 @@ public class TransactionController {
                 new CounterParty());
     }
 
+    //Getting data from DB
     @GetMapping("/listCurrencyPairs")
     public List<CurrencyPair> listCurrencyPairs() {
-        //List<CurrencyPair> currencyPairs = new ArrayList<CurrencyPair>();
-        //RestTemplate restTemplate = new RestTemplate();
-        //Map object = new HashMap<String,String>();
-        //object = restTemplate.getForObject("https://fcsapi.com/api-v3/forex/list?type=forex&access_key=wCY1WNYN6ULN4bj9R1tt",HashMap.class);
-        //ystem.out.println(object);
-
-        return currencyPairRepo.findAll();
+         return currencyPairRepo.findAll();
     }
 
 
@@ -74,11 +70,11 @@ public class TransactionController {
         return Collections.singletonList(
                 new Book());
     }
+    //Getting data from DB
     @GetMapping("/legalEntities")
     public List<LegalEntity> legalEntities() {
         return entityRepo.findAll();
     }
-
 
     @RequestMapping("/currencyQuotes")
     public Map<String,String> currencyQuotes(@RequestParam(value = "currency_pair", defaultValue = "") String name){

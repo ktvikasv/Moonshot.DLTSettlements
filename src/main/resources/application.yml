@@ -1,8 +1,9 @@
 spring:
   datasource:
-    url: jdbc:sqlserver://moonshotsrv.database.windows.net:1433;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
+    url: jdbc:sqlserver://moonshotsrv.database.windows.net:1433;databaseName=moonshot;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
     username: moonshot2023
     password: MoonShot@2023
+
   jap:
     show-sql: true
     hibernate:

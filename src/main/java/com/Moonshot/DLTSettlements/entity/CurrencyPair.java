@@ -5,22 +5,23 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table
+@Table(name="CURRENCYPAIR", schema = "dbo")
 public class CurrencyPair {
     @Id
     @GeneratedValue
-    private Integer id;
+    @Column(name = "CURPAIRID")
+    private Integer curPairId;
+    @Column(name = "DESCRIPTION")
     private String description; // "US Dollar Euro", "US Dollar British Pound","British Pound Euro"
+    @Column(name = "PIP")
     private int pip; // 4
+    @Column(name = "SYMBOL")
     private String symbol; // USD/EUR, USD/GBP, GBP/EUR etc.
 }

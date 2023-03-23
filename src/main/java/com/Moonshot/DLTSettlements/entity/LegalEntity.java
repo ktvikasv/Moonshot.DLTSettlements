@@ -8,14 +8,24 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.persistence.*;
+
 @Data
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name="LEGALENTITY",schema = "dbo")
+@Entity
 public class LegalEntity {
-    private Integer id;
+    @Id
+    @GeneratedValue
+    @Column(name = "LEID")
+    private Integer leID;
+    @Column(name = "NAME")
     private String name;
+    @Column(name = "CREATEDBY")
     private String createdBy;
-    private Date creationDate;
+    @Column(name = "DATESTAMP")
+    private Date dateStamp;
 
 }

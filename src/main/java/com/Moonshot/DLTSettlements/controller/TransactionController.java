@@ -2,6 +2,7 @@ package com.Moonshot.DLTSettlements.controller;
 
 
 import com.Moonshot.DLTSettlements.entity.*;
+import com.Moonshot.DLTSettlements.entity.Repo.CurrencyPairRepo;
 import com.Moonshot.DLTSettlements.entity.Repo.LegalEntityRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,9 @@ public class TransactionController {
 
     @Autowired
     private LegalEntityRepo entityRepo;
+
+    private CurrencyPairRepo currencyPairRepo;
+
     @RequestMapping("/")
     public String getMainPage(){
         return "Welcome to DLT Settlements System - FX";
@@ -51,16 +55,15 @@ public class TransactionController {
                 new CounterParty());
     }
 
-    @RequestMapping("/listCurrencyPairs")
+    @GetMapping("/listCurrencyPairs")
     public List<CurrencyPair> listCurrencyPairs() {
-        List<CurrencyPair> currencyPairs = new ArrayList<CurrencyPair>();
-        RestTemplate restTemplate = new RestTemplate();
-        Map object = new HashMap<String,String>();
-        object = restTemplate.getForObject("https://fcsapi.com/api-v3/forex/list?type=forex&access_key=wCY1WNYN6ULN4bj9R1tt",HashMap.class);
-        System.out.println(object);
-        return Collections.singletonList(
-                new CurrencyPair());
+        //List<CurrencyPair> currencyPairs = new ArrayList<CurrencyPair>();
+        //RestTemplate restTemplate = new RestTemplate();
+        //Map object = new HashMap<String,String>();
+        //object = restTemplate.getForObject("https://fcsapi.com/api-v3/forex/list?type=forex&access_key=wCY1WNYN6ULN4bj9R1tt",HashMap.class);
+        //ystem.out.println(object);
 
+        return currencyPairRepo.findAll();
     }
 
 

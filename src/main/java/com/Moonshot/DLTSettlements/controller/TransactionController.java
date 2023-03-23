@@ -2,6 +2,8 @@ package com.Moonshot.DLTSettlements.controller;
 
 
 import com.Moonshot.DLTSettlements.entity.*;
+import com.Moonshot.DLTSettlements.entity.Repo.LegalEntityRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -11,6 +13,8 @@ import java.util.*;
 @RequestMapping("/TransactionService")
 public class TransactionController {
 
+    @Autowired
+    private LegalEntityRepo entityRepo;
     @RequestMapping("/")
     public String getMainPage(){
         return "Welcome to DLT Settlements System - FX";
@@ -67,10 +71,9 @@ public class TransactionController {
         return Collections.singletonList(
                 new Book());
     }
-    @RequestMapping("/legalEntities")
+    @GetMapping("/legalEntities")
     public List<LegalEntity> legalEntities() {
-        return Collections.singletonList(
-                new LegalEntity());
+        return entityRepo.findAll();
     }
 
 

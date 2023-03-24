@@ -24,6 +24,7 @@ public class TransactionController {
     public String getMainPage(){
         return "Welcome to DLT Settlements System - FX";
     }
+    @CrossOrigin(origins = "*")
     @RequestMapping("/CurrencyList")
     public List<CurrencyEntity> fetchCurrency(){
 
@@ -71,6 +72,8 @@ public class TransactionController {
                 new Book());
     }
     //Getting data from DB
+
+    @CrossOrigin(origins = "*")
     @GetMapping("/legalEntities")
     public List<LegalEntity> legalEntities() {
         return entityRepo.findAll();

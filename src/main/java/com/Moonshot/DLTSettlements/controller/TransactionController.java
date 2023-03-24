@@ -4,6 +4,7 @@ package com.Moonshot.DLTSettlements.controller;
 import com.Moonshot.DLTSettlements.entity.*;
 import com.Moonshot.DLTSettlements.entity.Repo.CurrencyPairRepo;
 import com.Moonshot.DLTSettlements.entity.Repo.LegalEntityRepo;
+import com.Moonshot.DLTSettlements.entity.Repo.TradeObjectRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -20,6 +21,8 @@ public class TransactionController {
 
     @Autowired
     private CurrencyPairRepo currencyPairRepo;
+    @Autowired
+    private TradeObjectRepo tradeObjectRepo;
 
     @RequestMapping("/")
     public String getMainPage(){
@@ -98,8 +101,9 @@ public class TransactionController {
         return object;
     }
 
-    @RequestMapping(value="/submitTrade", method = RequestMethod.POST)
-    public void submitTrade(@RequestBody TradeObject payload) throws Exception {
-        System.out.println(payload);
+    @PostMapping (value="/submitTrade")
+    public TradeObject submitTrade(@RequestBody TradeObject payload) throws Exception {
+
+        return tradeObjectRepo.save(payload);
     }
 }

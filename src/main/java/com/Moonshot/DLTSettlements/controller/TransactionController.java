@@ -11,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.*;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/TransactionService")
 public class TransactionController {
 

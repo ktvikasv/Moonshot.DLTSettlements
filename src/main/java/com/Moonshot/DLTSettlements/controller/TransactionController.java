@@ -101,7 +101,7 @@ public class TransactionController {
         return object;
     }
 
-    @PostMapping (value="/submitTrade")
+    @PostMapping (value="/submitTrade", consumes = {"application/json"})
     public TradeObject submitTrade(@RequestBody TradeObject payload) throws Exception {
 
         return tradeObjectRepo.save(payload);

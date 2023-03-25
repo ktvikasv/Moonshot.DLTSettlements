@@ -106,4 +106,9 @@ public class TransactionController {
 
         return tradeObjectRepo.save(payload);
     }
+
+    @GetMapping("/getTradeByStatus")
+    public List<TradeObject> getTradeByStatus() {
+        return tradeObjectRepo.findTradeObjectByStatus("INITIATED");
+    }
 }

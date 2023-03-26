@@ -2,9 +2,7 @@ package com.Moonshot.DLTSettlements.controller;
 
 
 import com.Moonshot.DLTSettlements.entity.*;
-import com.Moonshot.DLTSettlements.entity.Repo.CurrencyPairRepo;
-import com.Moonshot.DLTSettlements.entity.Repo.LegalEntityRepo;
-import com.Moonshot.DLTSettlements.entity.Repo.TradeObjectRepo;
+import com.Moonshot.DLTSettlements.entity.Repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -23,6 +21,13 @@ public class TransactionController {
     private CurrencyPairRepo currencyPairRepo;
     @Autowired
     private TradeObjectRepo tradeObjectRepo;
+
+    @Autowired
+    private CounterPartyRepo counterPartyRepo;
+
+    //can be picked from db later
+    @Autowired
+    private QuoteRepo quoteRepo;
 
     @RequestMapping("/")
     public String getMainPage(){
@@ -56,9 +61,8 @@ public class TransactionController {
     }
 
     @RequestMapping("/counterpartyList")
-    public List<CounterParty>  counterpartyList() {
-        return Collections.singletonList(
-                new CounterParty());
+    public List<CounterParty>  counterpartyList()  {
+        return counterPartyRepo.findAll();
     }
 
     //Getting data from DB

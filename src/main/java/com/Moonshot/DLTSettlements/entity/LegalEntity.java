@@ -19,13 +19,15 @@ import javax.persistence.*;
 public class LegalEntity {
     @Id
     @GeneratedValue
-    @Column(name = "LEID")
+    @Column(name = "ID")
     private Integer leID;
-    @Column(name = "NAME")
-    private String name;
+    @Column(name = "COMPANYNAME")
+    private String companyName;
+    @Column(name = "LEGALENTITY")
+    private String legalEntity;
     @Column(name = "CREATEDBY")
     private String createdBy;
-    @Column(name = "DATESTAMP")
-    private Date dateStamp;
+    @Column(name = "CREATEDDATE")
+    private Date createdDate;
 
 }

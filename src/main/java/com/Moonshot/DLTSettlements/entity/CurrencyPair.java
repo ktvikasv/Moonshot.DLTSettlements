@@ -16,7 +16,7 @@ import javax.persistence.*;
 public class CurrencyPair {
     @Id
     @GeneratedValue
-    @Column(name = "CURPAIRID")
+    @Column(name = "ID")
     private Integer curPairId;
     @Column(name = "DESCRIPTION")
     private String description; // "US Dollar Euro", "US Dollar British Pound","British Pound Euro"

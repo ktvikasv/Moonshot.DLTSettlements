@@ -4,16 +4,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import java.util.Date;
+
 
 @Data
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="TRADEOBJECT",schema = "dbo")
+@Table(name="TRADEOBJECT")
 public class TradeObject {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -49,5 +51,11 @@ public class TradeObject {
     String legalEntity;
     @Column(name = "STATUS")
     String status;
+    @Column(name = "DEALERSIDE")
+    String dealerSide;
+    @Column(name = "CLIENTSIDE")
+    String clientSide;
+   @Column(name = "FLOWSTATUS")
+    String flowStatus;
 
 }

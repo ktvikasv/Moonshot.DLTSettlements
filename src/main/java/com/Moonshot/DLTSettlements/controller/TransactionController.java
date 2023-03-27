@@ -107,7 +107,6 @@ public class TransactionController {
 
     @PostMapping (value="/submitTrade", consumes = {"*/*"})
     public TradeObject submitTrade(@RequestBody TradeObject payload) throws Exception {
-
         return tradeObjectRepo.save(payload);
     }
 

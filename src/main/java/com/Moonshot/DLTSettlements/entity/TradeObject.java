@@ -1,9 +1,11 @@
 package com.Moonshot.DLTSettlements.entity;
 
+import com.Moonshot.DLTSettlements.Util.StringPrefixedSequenceIdGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
@@ -21,6 +23,17 @@ public class TradeObject {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
     Integer id;
+    /*
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trade_seq")
+    @GenericGenerator(
+            name = "trade_seq",
+            strategy = "com.Moonshot.DLTSettlements.Util.StringPrefixedSequenceIdGenerator",
+            parameters = {
+                    @org.hibernate.annotations.Parameter(name = StringPrefixedSequenceIdGenerator.INCREMENT_PARAM, value = "1"),
+                    @org.hibernate.annotations.Parameter(name = StringPrefixedSequenceIdGenerator.VALUE_PREFIX_PARAMETER, value = "TRFX_"),
+                    @org.hibernate.annotations.Parameter(name = StringPrefixedSequenceIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%05d")
+            }
+    )*/
     @Column(name = "TRADEID")
     String tradeId;
     @Column(name = "PRODUCT")
@@ -57,5 +70,7 @@ public class TradeObject {
     String clientSide;
    @Column(name = "FLOWSTATUS")
     String flowStatus;
+   @Column(name="CURRENCYPAIR")
+    String currencyPair;
 
 }

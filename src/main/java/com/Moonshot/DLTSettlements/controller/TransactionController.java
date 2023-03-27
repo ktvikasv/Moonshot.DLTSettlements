@@ -1,12 +1,18 @@
 package com.Moonshot.DLTSettlements.controller;
 
 
+import com.Moonshot.DLTSettlements.Util.StringPrefixedSequenceIdGenerator;
 import com.Moonshot.DLTSettlements.entity.*;
 import com.Moonshot.DLTSettlements.entity.Repo.*;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RestController
@@ -107,7 +113,14 @@ public class TransactionController {
 
     @PostMapping (value="/submitTrade", consumes = {"*/*"})
     public TradeObject submitTrade(@RequestBody TradeObject payload) throws Exception {
+        //db insert
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+        System.out.println(timeStamp);
+        payload.setTradeId("TRFX_"+timeStamp);
+        System.out.println("Trade Id" + payload.getTradeId());
         return tradeObjectRepo.save(payload);
+        //
+
     }
 
     @GetMapping("/getTradeByStatus")

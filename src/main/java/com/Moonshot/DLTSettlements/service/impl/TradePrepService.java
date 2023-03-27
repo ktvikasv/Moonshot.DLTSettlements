@@ -10,7 +10,7 @@ import java.util.List;
 public class TradePrepService {
     public TradeDLTObject  cloneTradeObjForDLT(TradeObject tradeObject, TradeDLTObject tradeDLTObject) {
 
-        tradeDLTObject.setResponder("O=PartyC,L=Los Angelos,C=US");
+        tradeDLTObject.setResponder(tradeObject.getCounterParty());
         Integer amount = tradeObject.getAmount();
         Float executionPrice = tradeObject.getExecutionPrice();
         Float buyAmount;

@@ -72,5 +72,7 @@ public class TradeObject {
     String flowStatus;
    @Column(name="CURRENCYPAIR")
     String currencyPair;
+   @Column(name="AMOUNT")
+    Integer amount;
 
 }

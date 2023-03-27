@@ -4,6 +4,7 @@ package com.Moonshot.DLTSettlements.controller;
 import com.Moonshot.DLTSettlements.Util.StringPrefixedSequenceIdGenerator;
 import com.Moonshot.DLTSettlements.entity.*;
 import com.Moonshot.DLTSettlements.entity.Repo.*;
+import com.Moonshot.DLTSettlements.service.impl.TradePrepService;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -118,7 +119,15 @@ public class TransactionController {
         System.out.println(timeStamp);
         payload.setTradeId("TRFX_"+timeStamp);
         System.out.println("Trade Id" + payload.getTradeId());
-        return tradeObjectRepo.save(payload);
+
+        tradeObjectRepo.save(payload);
+        TradeDLTObject tradeDLTObject = new TradeDLTObject();
+        TradePrepService tradePrepService = new TradePrepService();
+        RestTemplate restTemplate = new RestTemplate();
+        tradeDLTObject = tradePrepService.cloneTradeObjForDLT(payload, tradeDLTObject);
+        restTemplate.put("http://20.235.241.53:10027/api/fx/submitTrade", tradeDLTObject);
+
+        return payload;
         //
 
     }

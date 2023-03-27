@@ -22,8 +22,8 @@ jobs:
           java-version: '8'
 
       - name: Build with Maven
-        run: mvn spring-boot:run -Dspring-boot.run.profiles=BOL
-        
+        run: mvn install -DskipTests -Dspring-boot.run.profiles=BOL
+                
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:

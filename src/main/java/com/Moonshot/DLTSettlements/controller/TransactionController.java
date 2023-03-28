@@ -99,21 +99,28 @@ public class TransactionController {
     }
 
     @RequestMapping("/currencyQuotes")
-    public Map<String,String> currencyQuotes(@RequestParam(value = "currency_pair", defaultValue = "") String name){
-        Map<String,String> object = new HashMap<String,String>();
+    public String currencyQuotes(@RequestParam(value = "currency_pair", defaultValue = "") String name){
+        Map<String, Object> object;
+        //Map<String,String> object = new HashMap<String,String>();
+        String currVal="";
+        System.out.print(name);
         if(name !=null ) {
 
             RestTemplate restTemplate = new RestTemplate();
             StringBuilder stringBuilder = new StringBuilder("https://fcsapi.com/api-v3/forex/latest?symbol=");
             stringBuilder.append(name).append("&access_key=wCY1WNYN6ULN4bj9R1tt");
             object = restTemplate.getForObject(stringBuilder.toString(),HashMap.class);
+            ArrayList<Map> response = (ArrayList<Map>) object.get("response");
+            Map<String, String> currValMap = response.get(0);
+
+            currVal = currValMap.get("c");
+            System.out.print(currVal);
         }
         else
         {
             System.out.println("Either invalid currency pair "+name+", or null/empty currency pair supplied");
         }
-        System.out.println(object);
-        return object;
+       return currVal;
     }
 
     @PostMapping (value="/submitTrade", consumes = {"*/*"})

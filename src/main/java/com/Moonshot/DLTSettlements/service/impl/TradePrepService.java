@@ -1,16 +1,21 @@
 package com.Moonshot.DLTSettlements.service.impl;
 
 import com.Moonshot.DLTSettlements.entity.Book;
+import com.Moonshot.DLTSettlements.entity.Repo.TradeObjectRepo;
 import com.Moonshot.DLTSettlements.entity.TradeDLTObject;
 import com.Moonshot.DLTSettlements.entity.TradeObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.Collections;
 import java.util.List;
 
 public class TradePrepService {
+
     public TradeDLTObject  cloneTradeObjForDLT(TradeObject tradeObject, TradeDLTObject tradeDLTObject) {
 
-        tradeDLTObject.setResponder(tradeObject.getCounterParty());
+        tradeDLTObject.setResponder("PartyC");
         Integer amount = tradeObject.getAmount();
         Float executionPrice = tradeObject.getExecutionPrice();
         Float buyAmount;
@@ -39,13 +44,14 @@ public class TradePrepService {
         }
         tradeDLTObject.setTradedate(tradeObject.getExecution_date().toString());
         tradeDLTObject.setSettledate(tradeObject.getSettlement_date().toString());
-        tradeDLTObject.setExchangerate(tradeObject.getSpotPrice().intValue());
+        tradeDLTObject.setExchangerate(tradeObject.getSpotPrice().floatValue());
         tradeDLTObject.setBuysell(tradeObject.getDealerSide());
-        tradeDLTObject.setAmount(tradeObject.getAmount().toString());
+        //tradeDLTObject.setAmount(tradeObject.getAmount().toString());
         tradeDLTObject.setMatchstatus("UNMATCHED");
         tradeDLTObject.setSettlementstatus("UNSETTLED");
 
 
         return tradeDLTObject;
     }
+
 }

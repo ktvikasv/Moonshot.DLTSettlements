@@ -17,10 +17,10 @@ public class TradeDLTObject {
     String buycurrency;
     String tradedate;
     String settledate;
-    Integer exchangerate;
+    Float exchangerate;
     String buysell;
-    String tradeId;
-    String amount;
+    /*String tradeId;
+    String amount;*/
     String matchstatus;
     String settlementstatus;
 

@@ -7,6 +7,10 @@ import com.Moonshot.DLTSettlements.entity.Repo.*;
 import com.Moonshot.DLTSettlements.service.impl.TradePrepService;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -120,13 +124,36 @@ public class TransactionController {
         payload.setTradeId("TRFX_"+timeStamp);
         System.out.println("Trade Id" + payload.getTradeId());
 
+        //Insert into DB
         tradeObjectRepo.save(payload);
+
+
+        //Code to send data to the DLT Node
         TradeDLTObject tradeDLTObject = new TradeDLTObject();
         TradePrepService tradePrepService = new TradePrepService();
         RestTemplate restTemplate = new RestTemplate();
+        Map<String,Integer> param = new HashMap<>();
+        param.put("id", 1);
         tradeDLTObject = tradePrepService.cloneTradeObjForDLT(payload, tradeDLTObject);
-        restTemplate.put("http://20.235.241.53:10027/api/fx/submitTrade", tradeDLTObject);
 
+        HttpEntity<TradeDLTObject> request = new HttpEntity<TradeDLTObject>(tradeDLTObject);
+        String tradeResponse = restTemplate.postForObject("http://20.235.241.53:10027/api/fx/submitTrade",request, String.class);
+        System.out.print(tradeResponse);
+
+        String tradeResponseArray[] = tradeResponse.split("&&");
+        String transactionID = tradeResponseArray[0].substring(15);
+        System.out.print(transactionID);
+
+        //update flowstatus for the object in DB
+        payload.setFlowStatus(transactionID);
+        tradeObjectRepo.save(payload);
+        /*
+        restTemplate.exchange(
+                "http://20.235.241.53:10027/api/fx/submitTrade",
+                HttpMethod.PUT,
+                request,
+                Void.class);
+*/
         return payload;
         //
 

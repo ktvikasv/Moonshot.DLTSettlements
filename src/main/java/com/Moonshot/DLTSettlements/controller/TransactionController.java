@@ -144,23 +144,29 @@ public class TransactionController {
         tradeDLTObject = tradePrepService.cloneTradeObjForDLT(payload, tradeDLTObject);
 
         HttpEntity<TradeDLTObject> request = new HttpEntity<TradeDLTObject>(tradeDLTObject);
-        String tradeResponse = restTemplate.postForObject("http://20.235.241.53:10027/api/fx/submitTrade",request, String.class);
+        DLTTradeResponseObj tradeResponse = new DLTTradeResponseObj();
+        tradeResponse = restTemplate.postForObject("http://20.235.241.53:10027/api/fx/submitTrade",request, DLTTradeResponseObj.class);
         System.out.print(tradeResponse);
 
-        String tradeResponseArray[] = tradeResponse.split("&&");
-        String transactionID = tradeResponseArray[0].substring(15);
+        String transactionID = tradeResponse.getTransactionId();
         System.out.print(transactionID);
 
         //update flowstatus for the object in DB
         payload.setFlowStatus(transactionID);
+        payload.setStatus("UNSETTLED");
         tradeObjectRepo.save(payload);
-        /*
-        restTemplate.exchange(
-                "http://20.235.241.53:10027/api/fx/submitTrade",
-                HttpMethod.PUT,
-                request,
-                Void.class);
-*/
+
+        //call DLL for settlement confirmation
+        String uuid = tradeResponse.getUuid();
+        System.out.print("DLT uuid ..............."+uuid);
+        HttpEntity<String> request1 = new HttpEntity<String>(uuid);
+        String settlementResponse = restTemplate.postForObject("http://20.235.241.53:10027/api/fx/submitSettlement",request1, String.class);
+        System.out.print("DLT Response ..............."+settlementResponse);
+
+        //update flowstatus for the object in DB post Settlement
+        payload.setStatus("SETTLED");
+        tradeObjectRepo.save(payload);
+
         return payload;
         //
 
@@ -168,6 +174,6 @@ public class TransactionController {
 
     @GetMapping("/getTradeByStatus")
     public List<TradeObject> getTradeByStatus() {
-        return tradeObjectRepo.findTradeObjectByStatus("INITIATED");
+        return tradeObjectRepo.findTradeObjectByStatus("SETTLED");
     }
 }

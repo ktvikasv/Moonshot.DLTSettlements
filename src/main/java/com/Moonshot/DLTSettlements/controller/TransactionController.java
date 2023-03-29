@@ -108,7 +108,7 @@ public class TransactionController {
 
             RestTemplate restTemplate = new RestTemplate();
             StringBuilder stringBuilder = new StringBuilder("https://fcsapi.com/api-v3/forex/latest?symbol=");
-            stringBuilder.append(name).append("&access_key=wCY1WNYN6ULN4bj9R1tt");
+            stringBuilder.append(name).append("&access_key=f7Ih8zTtr3ilWtv7VOdl");
             object = restTemplate.getForObject(stringBuilder.toString(),HashMap.class);
             ArrayList<Map> response = (ArrayList<Map>) object.get("response");
             Map<String, String> currValMap = response.get(0);

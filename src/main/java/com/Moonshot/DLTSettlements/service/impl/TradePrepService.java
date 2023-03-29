@@ -15,6 +15,9 @@ public class TradePrepService {
 
     public TradeDLTObject  cloneTradeObjForDLT(TradeObject tradeObject, TradeDLTObject tradeDLTObject) {
 
+        //Silicon Vault Bank NA
+        //Bank of Liberty NA
+        //Wells Cargo Bank NA
         tradeDLTObject.setResponder("PartyC");
         Integer amount = tradeObject.getAmount();
         Float executionPrice = tradeObject.getExecutionPrice();
